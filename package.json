@@ -1,0 +1,18 @@
+{
+  "name": "file-metadata-microservice",
+  "version": "0.0.0",
+  "description": "A small Microservice for reading file upload MetaData and outputing the file size in bytes.",
+  "main": "server.js",
+  "repository": "",
+  "author": "Asif Norzai <asifkhannoorzai@gmail.com>",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "ejs": "^2.4.1",
+    "express": "~3.2.4",
+    "mime": "^1.3.4",
+    "multer": "^1.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  }
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File MetaData</title>
+    <script src="/public/js/jquery.min.js"></script>
+    <script src="/public/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/public/css/main.css" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <div>
+        <main class='col-xs-12 jumbotron'>
+            <header>
+                <h1>File MetaData</h1>
+            </header>
+            <section>
+                <form id="upload-form" method="post" enctype="multipart/form-data" action'/'>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">File Input</label>
+                    <input class="form-control file" type="file" name="file">
+                  </div>
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </section>
+            <section id="data-here">
+                
+            </section>
+        </main>
+        </div>
+    </div>
+<script type="text/javascript">
+
+$(document).submit('#upload-form', function(e) {
+    e.preventDefault();
+    uploadIt();
+    function uploadIt() {
+ var formData = new FormData();
+ formData.append('file', $('.file')[0].files[0]);
+  if(formData) {
+	$.ajax({
+		type: 'POST',
+		data: formData,
+		contentType: false,
+        processData: false,
+        url: '/',						
+        success: function(data) {
+            // console.log(data);
+            var imageOrNot = data.mimetype.split('/')[0];
+            var printItToPage = '<div class="row">\n  <div class=" col-xs-12">\n    <div class="thumbnail">\n    ' + (imageOrNot === 'image' ? "<img class='img-thumbnail' src=" + data.path +'>' : '') + '\n      <div class="caption">\n        <p>File Name: ' + data.originalname + '</p>\n        <p>Size(bytes): ' + data.size + '</p>\n        <p>File Type: ' + data.mimetype + '</p>\n        <p>Encoding: ' + data.encoding + '</p>\n      </div>\n    </div>\n  </div>\n</div>';
+                                
+            $('#data-here').html(printItToPage);
+            alert('File Name: ' + data.originalname+', ' +'File Size: '+ data.size);
+        }
+    });
+  }
+ }
+});
+
+</script>
+</body>
+</html>
